@@ -25,11 +25,16 @@
     <![endif]-->
     <link type="text/css" rel="stylesheet" href="styles/prettify.css">
     <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <link type="text/css" rel="stylesheet" href="styles/overrides.css">
     <script src="scripts/nav.js" defer></script>
     <?js if (env.conf.docdash.commonNav) { ?>
     <script src="scripts/commonNav.js" defer></script>
     <?js } ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <?js if (env.conf.docdash.favicon) { ?>
+    <link rel="icon" href="<?js= env.conf.docdash.favicon ?>">
+    <?js } ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
 </head>
 <body>
 
@@ -55,7 +60,7 @@
     <?js } ?>
 
     <?js= content ?>
-    
+
     <?js if (env.conf.docdash.disqus) { ?>
     <div id="disqus_thread"></div>
     <script>
