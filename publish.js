@@ -486,6 +486,39 @@ function buildNav(members) {
         if (members.globals.length) {
             var globalNav = '';
 
+            const types = members.globals.filter(g => g.kind === 'typedef' && g.type.names[0] !== 'function');
+
+            if (types.length > 0) {
+                globalNav += `
+                    <li>
+                        ${linkto(types[0].longname, 'Types')}
+                        <ul>
+                            ${types.map(g => {
+                                seen[g.longname] = true;
+                                return `<li>${linkto(g.longname, g.name)}</li>`;
+                            }).join('')}
+                        </ul>
+                    </li>
+                `;
+            }
+
+            const callbacks = members.globals.filter(g => g.kind === 'typedef' && g.type.names[0] === 'function');
+
+            if (callbacks.length > 0) {
+                globalNav += `
+                    <li>
+                        ${linkto(callbacks[0].longname, 'Callbacks')}
+                        <ul>
+                            ${callbacks.map(g => {
+                                seen[g.longname] = true;
+                                return `<li>${linkto(g.longname, g.name)}</li>`;
+                            }).join('')}
+                        </ul>
+                    </li>
+                `;
+            }
+
+            // remaining stuff (to be defined what it is...)
             members.globals.forEach(function(g) {
                 if ( (docdash.typedefs || g.kind !== 'typedef') && !hasOwnProp.call(seen, g.longname) ) {
                     globalNav += '<li>' + linkto(g.longname, g.name) + '</li>';
@@ -496,9 +529,8 @@ function buildNav(members) {
             if (!globalNav) {
                 // turn the heading into a link so you can actually get to the global page
                 ret += '<h3>' + linkto('global', 'Global') + '</h3>';
-            }
-            else {
-                if(docdash.collapse === "top") {
+            } else {
+                if (docdash.collapse === "top") {
                     ret += '<h3 class="collapsed_header">Global</h3><ul class="collapse_top">' + globalNav + '</ul>';
                 }
                 else {
