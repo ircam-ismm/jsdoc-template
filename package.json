@@ -1,6 +1,6 @@
 {
   "name": "@ircam/jsdoc-template",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A clean, responsive documentation template theme for JSDoc 3 - forked from docdash",
   "main": "publish.js",
   "publishConfig": {
